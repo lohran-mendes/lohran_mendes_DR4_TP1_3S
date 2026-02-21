@@ -1,11 +1,23 @@
+import type { Post } from "../../interfaces/dummy-list.interface";
 import "./PostForm.css";
-import { useState, type SubmitEvent } from "react";
+import { useEffect, useState, type SubmitEvent } from "react";
 
 type PostFormProps = {
   onAddPost: (postData: { title: string; body: string }) => void;
+  onEditPost: (postData: { title: string; body: string }) => void;
+  postToEdit?: Post | null;
 };
 
-function PostForm({ onAddPost }: PostFormProps) {
+function PostForm(props: PostFormProps) {
+  const { onAddPost, onEditPost, postToEdit } = props;
+
+  useEffect(() => {
+    if (postToEdit) {
+      setTitle(postToEdit.title);
+      setBody(postToEdit.body);
+    }
+  }, [postToEdit]);
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -17,14 +29,18 @@ function PostForm({ onAddPost }: PostFormProps) {
 
     if (!currentTitle || !currentBody) return;
 
-    onAddPost({ title: currentTitle, body: currentBody });
+    if (postToEdit) {
+      onEditPost({ title: currentTitle, body: currentBody });
+    } else {
+      onAddPost({ title: currentTitle, body: currentBody });
+    }
     setTitle("");
     setBody("");
   };
 
   return (
     <form className="post-form" onSubmit={handleSubmit}>
-      <h2>Adicionar Novo Post</h2>
+      <h2>{postToEdit ? "Editar Post" : "Adicionar Novo Post"}</h2>
       <div className="form-group">
         <label htmlFor="title">Título:</label>
         <input
@@ -47,7 +63,11 @@ function PostForm({ onAddPost }: PostFormProps) {
           required
         ></textarea>
       </div>
-      <button type="submit">Publicar Post</button>
+      {postToEdit ? (
+        <button type="submit">Salvar Alterações</button>
+      ) : (
+        <button type="submit">Publicar Post</button>
+      )}
     </form>
   );
 }

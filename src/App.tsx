@@ -7,6 +7,7 @@ import PostForm from "./components/PostForm/PostForm";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [postToEdit, setPostToEdit] = useState<Post | null>(null);
 
   const handleAddPost = (postData: { title: string; body: string }) => {
     setPosts((currentPosts) => {
@@ -32,6 +33,32 @@ function App() {
     });
   };
 
+  const handleDeletePost = (postId: number) => {
+    setPosts((currentPosts) =>
+      currentPosts.filter((post) => post.id !== postId),
+    );
+  };
+
+  const handleEditPost = (postId: number) => {
+    const postToEdit = posts.find((post) => post.id === postId);
+    if (!postToEdit) return;
+
+    setPostToEdit(postToEdit);
+  };
+
+  const updatePost = (postData: { title: string; body: string }) => {
+    if (!postToEdit) return;
+
+    setPosts((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postToEdit.id
+          ? { ...post, title: postData.title, body: postData.body }
+          : post,
+      ),
+    );
+    setPostToEdit(null);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,8 +77,16 @@ function App() {
     <>
       <Header />
       <p className="app-subtitle">Sistema de Gestão de Conteúdo</p>
-      <PostForm onAddPost={handleAddPost} />
-      <PostList posts={posts} />
+      <PostForm
+        onAddPost={handleAddPost}
+        onEditPost={updatePost}
+        postToEdit={postToEdit}
+      />
+      <PostList
+        onEditPost={handleEditPost}
+        onDeletePost={handleDeletePost}
+        posts={posts}
+      />
     </>
   );
 }
