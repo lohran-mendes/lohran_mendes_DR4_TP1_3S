@@ -49,7 +49,7 @@ function App() {
         },
       };
       
-      showToastMessage("Post adicionado com sucesso!", TYPES_OF_TOAST.SUCCESS);
+      showToastMessage("Postagem publicada!", TYPES_OF_TOAST.SUCCESS);
       return [newPost, ...currentPosts];
     });
   };
@@ -67,7 +67,7 @@ function App() {
     setPosts((currentPosts) =>
       currentPosts.filter((post) => post.id !== postId),
     );
-    showToastMessage("Post deletado com sucesso!", TYPES_OF_TOAST.SUCCESS);
+    showToastMessage("Post removido!", TYPES_OF_TOAST.SUCCESS);
   };
 
   const handleEditPost = (postId: number) => {
@@ -96,7 +96,7 @@ function App() {
           : post,
       ),
     );
-    showToastMessage("Post atualizado com sucesso!", TYPES_OF_TOAST.SUCCESS);
+    showToastMessage("Alterações salvas!", TYPES_OF_TOAST.SUCCESS);
     setPostToEdit(null);
   };
 
