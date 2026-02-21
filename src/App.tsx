@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import PostList from "./components/Postlist/PostList";
 import type { DummyList, Post } from "./interfaces/dummy-list.interface";
+import PostForm from "./components/PostForm/PostForm";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -26,6 +27,7 @@ function App() {
       <Header />
       <p className="app-subtitle">Sistema de Gestão de Conteúdo</p>
       <PostList posts={posts} />
+      <PostForm/>
     </>
   );
 }
