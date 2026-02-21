@@ -10,7 +10,7 @@ function PostList(props: PostListProps) {
 
   return (
     <ul className="posts-list">
-      {posts.slice(0, 3).map((post) => (
+      {posts.map((post) => (
         <li key={post.id} className="post-card">
           <h3>{post.title}</h3>
           <p>{post.body}</p>
