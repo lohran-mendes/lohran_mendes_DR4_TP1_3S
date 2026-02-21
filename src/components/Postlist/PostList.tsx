@@ -1,5 +1,5 @@
 import "./PostList.css";
-import type { Post } from "../interfaces/dummy-list.interface";
+import type { Post } from "../../interfaces/dummy-list.interface";
 
 type PostListProps = {
   posts: Post[];

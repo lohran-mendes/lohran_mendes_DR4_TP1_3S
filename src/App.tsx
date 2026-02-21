@@ -1,8 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Header from "./header/Header";
-
-import PostList from "./PostList/PostList";
+import Header from "./components/Header/Header";
+import PostList from "./components/Postlist/PostList";
 import type { DummyList, Post } from "./interfaces/dummy-list.interface";
 
 function App() {
